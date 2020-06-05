@@ -11,19 +11,23 @@ export class GetInputComponent implements AfterViewInit {
   displayError = false;
   @ViewChild('inputEl', { static: false }) inputEl: ElementRef;
 
-  addItem() {
+  public addItem(): void {
     this.listItem = this.inputValue;
+    this.resetInput();
+  }
+
+  public setItemStatus(status: boolean): void {
+    this.listItem = '';
+    this.displayError = status;
+  }
+
+  public enableAddBtn(): boolean {
+    return !(this.inputValue && this.inputValue.trim().length > 0);
+  }
+
+  private resetInput(): void {
     this.inputValue = '';
     this.inputEl.nativeElement.focus();
-  }
-
-  setItemStatus(status: boolean) {
-    this.displayError = status;
-    this.listItem = '';
-  }
-
-  enableInput() {
-    return !(this.inputValue && this.inputValue.trim().length > 0);
   }
 
   ngAfterViewInit() {
